@@ -62,7 +62,7 @@ ul{margin:0;padding:0;list-style:none;}
 h1,h2,h3{margin:0;letter-spacing:-.01em;}
 h1,h2{font-family:var(--ff-display);font-weight:400;}
 h3{font-family:var(--ff-accent);font-weight:400;}
-p{margin:0;text-align:justify;hyphens:auto;}
+p{margin:0;text-align:justify;text-justify:inter-word;hyphens:none;word-spacing:-1px;}
 
 ::selection{background:var(--ink);color:var(--paper);}
 
