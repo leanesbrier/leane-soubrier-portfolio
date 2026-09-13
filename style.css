@@ -511,7 +511,7 @@ section{padding:0 5vw;}
 }
 
 /* contact */
-.section-contact{background:var(--ink);color:var(--paper);border-top:1px solid rgba(255,255,255,.15);position:relative;overflow:hidden;}
+.section-contact{background:var(--ink);color:var(--paper);border-top:1px solid rgba(255,255,255,.15);position:relative;overflow:hidden;padding-bottom:min(70px,7vh);}
 .contact-grid{position:relative;z-index:1;}
 .contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:min(8vw,100px);align-items:start;}
 .contact-statement .section-num{
