@@ -73,7 +73,8 @@ p{margin:0;text-align:justify;text-justify:inter-word;hyphens:none;word-spacing:
 
 .cursor-dot,.cursor-ring{
   position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);will-change:transform,left,top;
+  transform:translate(var(--x,-100px),var(--y,-100px)) translate(-50%,-50%);
+  will-change:transform;
 }
 .cursor-dot{width:6px;height:6px;background:var(--ink);}
 .cursor-ring{width:38px;height:38px;border:1px solid var(--ink);transition:width .25s var(--ease),height .25s var(--ease),opacity .25s var(--ease),border-color .25s;}
@@ -84,10 +85,11 @@ p{margin:0;text-align:justify;text-justify:inter-word;hyphens:none;word-spacing:
   position:fixed;top:0;left:0;z-index:9999;pointer-events:none;
   width:74px;height:74px;border-radius:50%;background:var(--ink);color:var(--paper);
   display:flex;align-items:center;justify-content:center;
-  transform:translate(-50%,-50%) scale(0);opacity:0;transition:transform .35s var(--ease),opacity .3s;
-  will-change:transform,left,top;
+  transform:translate(var(--x,-100px),var(--y,-100px)) translate(-50%,-50%);
+  scale:0;opacity:0;transition:scale .35s var(--ease),opacity .3s;
+  will-change:transform;
 }
-.cursor-label.show{transform:translate(-50%,-50%) scale(1);opacity:1;}
+.cursor-label.show{scale:1;opacity:1;}
 .cursor-label span{font-family:var(--ff-sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;}
 
 /* below the nav breakpoint the layout switches to its compact/mobile

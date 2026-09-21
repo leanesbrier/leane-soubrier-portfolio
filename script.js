@@ -80,17 +80,27 @@ if (isFinePointer) {
     const ring = document.querySelector('.cursor-ring');
     const label = document.getElementById('cursorLabel');
     document.body.classList.add('cursor-ready');
-    let mx = 0, my = 0, rx = 0, ry = 0;
+    let mx = 0, my = 0, rx = 0, ry = 0, lastT = 0;
     window.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
-      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      dot.style.setProperty('--x', mx + 'px');
+      dot.style.setProperty('--y', my + 'px');
     });
-    (function loop(){
-      rx += (mx - rx) * .16; ry += (my - ry) * .16;
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      label.style.left = rx + 'px'; label.style.top = ry + 'px';
+    // Trailing ring/label lerp toward the pointer. The catch-up factor is
+    // scaled by the actual time since the last frame so the trail closes at
+    // the same real-world speed on a 60Hz display and a 120Hz ProMotion one
+    // — a plain per-frame factor converges roughly twice as fast at 120fps,
+    // which reads as a noticeably tighter/twitchier trail on those screens.
+    (function loop(t){
+      const dt = lastT ? t - lastT : 16.7;
+      lastT = t;
+      const k = 1 - Math.pow(1 - .16, dt / 16.7);
+      rx += (mx - rx) * k; ry += (my - ry) * k;
+      const x = rx + 'px', y = ry + 'px';
+      ring.style.setProperty('--x', x); ring.style.setProperty('--y', y);
+      label.style.setProperty('--x', x); label.style.setProperty('--y', y);
       requestAnimationFrame(loop);
-    })();
+    })(0);
     document.querySelectorAll('a, button, [data-magnetic]').forEach(el => {
       if (el.closest('.creation-item')) return;
       el.addEventListener('mouseenter', () => ring.classList.add('big'));
